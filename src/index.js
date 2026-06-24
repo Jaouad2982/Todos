@@ -48,21 +48,53 @@ let todos = [
   },
 ];
 
-const content = document.querySelector(".content");
-const form = document.querySelector(".form-block");
+function selectFormElement() {
+  const btnForm = document.querySelector(".btn");
+  const titleInput = document.getElementById("title");
+  const descriptionInput = document.getElementById("description");
+  const dueDateInput = document.getElementById("dueDate");
+  const priorityInput = document.getElementById("priority");
+  const notesInput = document.getElementById("notes");
+  const checkListInput = document.getElementById("checkList");
+  const projectInput = document.getElementById("project");
+  const statusInput = document.getElementById("statusSpan");
+  const content = document.querySelector(".content");
+  const form = document.querySelector(".form-block");
+  return {
+    btnForm,
+    titleInput,
+    descriptionInput,
+    dueDateInput,
+    priorityInput,
+    notesInput,
+    checkListInput,
+    projectInput,
+    statusInput,
+    content,
+    form,
+  };
+}
+
+console.log(selectFormElement());
+
+function returnElement(type) {
+  const elem = document.createElement(type);
+  return elem;
+}
 
 function populateTodos() {
   todos.forEach((elem) => {
-    const divTodo = document.createElement("div");
+    const divTodo = returnElement("ul");
     divTodo.classList.add("todoClass");
-    const title = document.createElement("span");
-    const description = document.createElement("p");
-    const dueDate = document.createElement("p");
-    const priority = document.createElement("p");
-    const notes = document.createElement("p");
-    const checkList = document.createElement("p");
-    const projects = document.createElement("p");
-    const statusSpan = document.createElement("p");
+    const title = returnElement("li");
+    const description = returnElement("li");
+    const dueDate = returnElement("li");
+    const priority = returnElement("li");
+    const notes = returnElement("li");
+    const checkList = returnElement("li");
+    const projects = returnElement("li");
+    const statusSpan = returnElement("li");
+
     divTodo.append(title);
     divTodo.append(description);
     divTodo.append(dueDate);
@@ -71,7 +103,7 @@ function populateTodos() {
     divTodo.append(checkList);
     divTodo.append(projects);
     divTodo.append(statusSpan);
-    content.append(divTodo);
+    selectFormElement().content.append(divTodo);
 
     title.textContent = `${elem.title}`;
     description.textContent = `${elem.description}`;
@@ -83,19 +115,24 @@ function populateTodos() {
     statusSpan.textContent = `${elem.projectsTodos.status}`;
   });
 }
-const btnForm = document.querySelector(".btn");
 
 function todo() {
-  btnForm.addEventListener("click", function (e) {
+  selectFormElement().btnForm.addEventListener("click", function (e) {
+    const divTodo = returnElement("div");
+    divTodo.classList.add("todoClass");
     e.preventDefault();
-    const titleInput = document.getElementById("title");
-    const descriptionInput = document.getElementById("description");
-    const dueDateInput = document.getElementById("dueDate");
-    const priorityInput = document.getElementById("priority");
-    const notesInput = document.getElementById("notes");
-    const checkListInput = document.getElementById("checkList");
-    const projectInput = document.getElementById("project");
-    const statusInput = document.getElementById("statusSpan");
+    const objectInput = selectFormElement();
+    const {
+      titleInput,
+      descriptionInput,
+      dueDateInput,
+      priorityInput,
+      checkListInput,
+      projectInput,
+      statusInput,
+      content,
+      form,
+    } = { ...objectInput };
     let titleInputValue = titleInput.value;
     let descriptionInputValue = descriptionInput.value;
     let dueDateInputValue = dueDateInput.value;
@@ -104,35 +141,32 @@ function todo() {
     let checkListInputValue = checkListInput.value;
     let projectInputValue = projectInput.value;
     let statusInputValue = statusInput.value;
+    const liTitle = returnElement("li");
+    const liDescription = returnElement("li");
+    const liDueDate = returnElement("li");
+    const liPriority = returnElement("li");
+    const liNotes = returnElement("li");
+    const liCheckList = returnElement("li");
+    const liProjects = returnElement("li");
+    const liStatusSpan = returnElement("li");
 
-    console.log(
-      "btn Clicked",
-      titleInputValue,
-      projectInputValue,
-      dueDateInputValue,
-      priorityInputValue,
-      notesInputValue,
-      checkListInputValue,
-      projectInputValue,
-      statusInputValue,
-    );
+    liTitle.textContent = titleInputValue;
+    liDescription.textContent = descriptionInputValue;
+    liDueDate.textContent = dueDateInputValue;
+    liPriority.textContent = priorityInputValue;
+    liNotes.textContent = notesInputValue;
+    liCheckList.textContent = checkListInputValue;
+    liProjects.textContent = projectInputValue;
+    liStatusSpan.textContent = statusInputValue;
+    divTodo.append(liTitle);
+    divTodo.append(liDescription);
+    divTodo.append(liDueDate);
+    divTodo.append(liPriority);
+    divTodo.append(liNotes);
+    divTodo.append(liCheckList);
+    divTodo.append(liProjects);
+    divTodo.append(liStatusSpan);
 
-    title.textContent = titleInputValue;
-    description.textContent = descriptionInputValue;
-    dueDate.textContent = dueDateInputValue;
-    priority.textContent = priorityInputValue;
-    notes.textContent = notesInputValue;
-    checkList.textContent = checkListInputValue;
-    project.textContent = projectInputValue;
-    statusSpan.textContent = statusInputValue;
-    divTodo.append(title.textContent);
-    divTodo.append(description.textContent);
-    divTodo.append(dueDate.textContent);
-    divTodo.append(priority.textContent);
-    divTodo.append(notes.textContent);
-    divTodo.append(checkList.textContent);
-    divTodo.append(project.textContent);
-    divTodo.append(statusSpan.textContent);
     content.append(divTodo);
     content.classList.add("content");
   });
