@@ -51,7 +51,7 @@ let todos = [
 
 function formValidation(element) {
   if (!element || element == null || element.length == 0)
-    return `<div class="formDiv"> Error submitting the form </div>`;
+    document.body.innerHTML = `<div class="formDiv"> Error submitting the form</div>`;
   return element;
 }
 
@@ -165,13 +165,13 @@ function todo() {
     const liProjects = returnElement("li");
     const liStatusSpan = returnElement("li");
     liTitle.textContent = formValidation(data.titleTodo);
-    liDescription.textContent = data.descriptionTodo;
-    liDueDate.textContent = data.dueDate;
-    liPriority.textContent = data.priority;
-    liNotes.textContent = data.notes;
-    liCheckList.textContent = data.checkList;
-    liProjects.textContent = data.projects;
-    liStatusSpan.textContent = data.status;
+    liDescription.textContent = formValidation(data.descriptionTodo);
+    liDueDate.textContent = formValidation(data.dueDate);
+    liPriority.textContent = formValidation(data.priority);
+    liNotes.textContent = formValidation(data.notes);
+    liCheckList.textContent = formValidation(data.checkList);
+    liProjects.textContent = formValidation(data.projects);
+    liStatusSpan.textContent = formValidation(data.status);
     divTodo.append(liTitle);
     divTodo.append(liDescription);
     divTodo.append(liDueDate);
