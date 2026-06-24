@@ -74,8 +74,19 @@ function selectFormElement() {
     form,
   };
 }
-
-console.log(selectFormElement());
+const objectInput = selectFormElement();
+const {
+  titleInput,
+  descriptionInput,
+  dueDateInput,
+  priorityInput,
+  notesInput,
+  checkListInput,
+  projectInput,
+  statusInput,
+  content,
+  form,
+} = { ...objectInput };
 
 function returnElement(type) {
   const elem = document.createElement(type);
@@ -118,26 +129,17 @@ function populateTodos() {
 
 function todo() {
   selectFormElement().btnForm.addEventListener("click", function (e) {
+    saveToLocalStorage();
+    let data = getDataFromLocalStorage();
     const divTodo = returnElement("div");
     divTodo.classList.add("todoClass");
     e.preventDefault();
-    const objectInput = selectFormElement();
-    const {
-      titleInput,
-      descriptionInput,
-      dueDateInput,
-      priorityInput,
-      checkListInput,
-      projectInput,
-      statusInput,
-      content,
-      form,
-    } = { ...objectInput };
+
     let titleInputValue = titleInput.value;
     let descriptionInputValue = descriptionInput.value;
     let dueDateInputValue = dueDateInput.value;
     let priorityInputValue = priorityInput.value;
-    let notesInputValue = priorityInput.value;
+    let notesInputValue = notesInput.value;
     let checkListInputValue = checkListInput.value;
     let projectInputValue = projectInput.value;
     let statusInputValue = statusInput.value;
@@ -149,15 +151,14 @@ function todo() {
     const liCheckList = returnElement("li");
     const liProjects = returnElement("li");
     const liStatusSpan = returnElement("li");
-
-    liTitle.textContent = titleInputValue;
-    liDescription.textContent = descriptionInputValue;
-    liDueDate.textContent = dueDateInputValue;
-    liPriority.textContent = priorityInputValue;
-    liNotes.textContent = notesInputValue;
-    liCheckList.textContent = checkListInputValue;
-    liProjects.textContent = projectInputValue;
-    liStatusSpan.textContent = statusInputValue;
+    liTitle.textContent = data.titleTodo;
+    liDescription.textContent = data.descriptionTodo;
+    liDueDate.textContent = data.dueDate;
+    liPriority.textContent = data.priority;
+    liNotes.textContent = data.notes;
+    liCheckList.textContent = data.checkList;
+    liProjects.textContent = data.projects;
+    liStatusSpan.textContent = data.status;
     divTodo.append(liTitle);
     divTodo.append(liDescription);
     divTodo.append(liDueDate);
@@ -171,6 +172,35 @@ function todo() {
     content.classList.add("content");
   });
 }
+
+function saveToLocalStorage() {
+  localStorage.setItem("titleTodo", titleInput.value);
+  localStorage.setItem("descriptionTodo", descriptionInput.value);
+  localStorage.setItem("dueDate", dueDateInput.value);
+  localStorage.setItem("priority", descriptionInput.value);
+  localStorage.setItem("checkList", checkListInput.value);
+  localStorage.setItem("notes", notesInput.value);
+  localStorage.setItem("projects", projectInput.value);
+  localStorage.setItem("status", statusInput.value);
+}
+
+function getDataFromLocalStorage() {
+  // Build an object with all the stored values
+  const data = {
+    titleTodo: localStorage.getItem("titleTodo"),
+    descriptionTodo: localStorage.getItem("descriptionTodo"),
+    dueDate: localStorage.getItem("dueDate"),
+    priority: localStorage.getItem("priority"),
+    checkList: localStorage.getItem("checkList"),
+    notes: localStorage.getItem("notes"),
+    projects: localStorage.getItem("projects"),
+    status: localStorage.getItem("status"),
+  };
+
+  return data; // Return the object
+}
+
+console.log(getDataFromLocalStorage());
 
 populateTodos();
 todo();
