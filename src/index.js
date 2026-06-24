@@ -150,7 +150,7 @@ function populateTodos() {
     projects.textContent = `${elem.projectsTodos.project}`;
     statusSpan.textContent = `${elem.projectsTodos.status}`;
     deleteTodoFunction(deleteTodo, divTodo);
-    modifyTodoFunction(modifyTodo);
+    modifyTodoFunction(modifyTodo, divTodo);
   });
 }
 
@@ -203,7 +203,8 @@ function todo() {
     divTodo.append(deleteButton);
     divTodo.append(modifyButton);
     deleteTodoFunction(deleteButton, divTodo);
-    // modifyTodoFunction(modifyTodo, divTodo);
+    console.log(divTodo);
+    modifyTodoFunction(modifyButton, divTodo);
     content.append(divTodo);
     content.classList.add("content");
   });
@@ -248,9 +249,17 @@ function deleteTodoFunction(deleteTodo, divTodo) {
   });
 }
 
-function modifyTodoFunction(modifyTodo) {
-  modifyTodo.addEventListener("click", function () {
-    console.log("modify todo");
+let listContent = [];
+function modifyTodoFunction(modifyTodo, element) {
+  modifyTodo.addEventListener("click", function (e) {
+    const elementDiv = e.target.closest("ul");
+    const liElements = elementDiv.querySelectorAll("li");
+    liElements.forEach((elem, index) => {
+      const miniBtnModify = document.createElement("button");
+      miniBtnModify.classList.add("miniButtonModify");
+      miniBtnModify.textContent = "update";
+      elem.insertBefore(miniBtnModify, elem.firstChild);
+    });
   });
 }
 
