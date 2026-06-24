@@ -49,6 +49,12 @@ let todos = [
   },
 ];
 
+function formValidation(element) {
+  if (!element || element == null || element.length == 0)
+    return `<div class="formDiv"> Error submitting the form </div>`;
+  return element;
+}
+
 function selectFormElement() {
   const btnForm = document.querySelector(".btn");
   const titleInput = document.getElementById("title");
@@ -158,7 +164,7 @@ function todo() {
     const liCheckList = returnElement("li");
     const liProjects = returnElement("li");
     const liStatusSpan = returnElement("li");
-    liTitle.textContent = data.titleTodo;
+    liTitle.textContent = formValidation(data.titleTodo);
     liDescription.textContent = data.descriptionTodo;
     liDueDate.textContent = data.dueDate;
     liPriority.textContent = data.priority;
