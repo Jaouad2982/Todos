@@ -1,5 +1,5 @@
 import "./style.css";
-
+// import connectDB from "./connect";
 let todos = [
   {
     title: "Buy groceries",
@@ -106,7 +106,10 @@ function populateTodos() {
     const checkList = returnElement("li");
     const projects = returnElement("li");
     const statusSpan = returnElement("li");
-
+    const deleteTodo = returnElement("button");
+    const modifyTodo = returnElement("button");
+    deleteTodo.classList.add("deleteTodo");
+    modifyTodo.classList.add("modifyTodo");
     divTodo.append(title);
     divTodo.append(description);
     divTodo.append(dueDate);
@@ -115,8 +118,11 @@ function populateTodos() {
     divTodo.append(checkList);
     divTodo.append(projects);
     divTodo.append(statusSpan);
+    divTodo.append(deleteTodo);
+    divTodo.append(modifyTodo);
     selectFormElement().content.append(divTodo);
-
+    deleteTodo.textContent = "Delete";
+    modifyTodo.textContent = "Modify";
     title.textContent = `${elem.title}`;
     description.textContent = `${elem.description}`;
     dueDate.textContent = `${elem.dueDate}`;

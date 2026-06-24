@@ -16,7 +16,7 @@
 }
 
 .todo {
-  font-size: 12rem;
+  font-size: 16rem;
   opacity: 0.3;
 }
 
@@ -80,3 +80,17 @@ label {
   height: 100vh;
   border: 1px solid red;
 } */
+
+.deleteTodo,
+.modifyTodo {
+  width: 4rem;
+  padding: 2px;
+  background-color: rgb(26, 25, 25);
+  border-radius: 5px;
+  color: white;
+  margin-top: 2rem;
+  border: none;
+  display: flex;
+  justify-content: center;
+  opacity: 0.3;
+}
