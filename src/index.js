@@ -186,21 +186,24 @@ function saveToLocalStorage() {
 
 function getDataFromLocalStorage() {
   // Build an object with all the stored values
-  const data = {
-    titleTodo: localStorage.getItem("titleTodo"),
-    descriptionTodo: localStorage.getItem("descriptionTodo"),
-    dueDate: localStorage.getItem("dueDate"),
-    priority: localStorage.getItem("priority"),
-    checkList: localStorage.getItem("checkList"),
-    notes: localStorage.getItem("notes"),
-    projects: localStorage.getItem("projects"),
-    status: localStorage.getItem("status"),
-  };
+  let data = null;
+  try {
+    data = {
+      titleTodo: localStorage.getItem("titleTodo"),
+      descriptionTodo: localStorage.getItem("descriptionTodo"),
+      dueDate: localStorage.getItem("dueDate"),
+      priority: localStorage.getItem("priority"),
+      checkList: localStorage.getItem("checkList"),
+      notes: localStorage.getItem("notes"),
+      projects: localStorage.getItem("projects"),
+      status: localStorage.getItem("status"),
+    };
+  } catch (error) {
+    console.log("data not available ", error.message);
+  }
 
   return data; // Return the object
 }
-
-console.log(getDataFromLocalStorage());
 
 populateTodos();
 todo();
