@@ -51,7 +51,7 @@ let todos = [
 
 function formValidation(element) {
   if (!element || element == null || element.length == 0)
-    document.body.innerHTML = `<div class="formDiv"> Error submitting the form</div>`;
+    document.body.innerHTML = `<div class="formDiv"> Error submitting the form, ${element}</div>`;
   return element;
 }
 
