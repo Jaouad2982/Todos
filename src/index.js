@@ -100,6 +100,18 @@ function returnElement(type) {
   return elem;
 }
 
+function returnDeleteBtn() {
+  const deleteBtn = returnElement("button");
+  return deleteBtn;
+}
+
+function returnModifyBtn() {
+  const modifyBtn = returnElement("button");
+  return modifyBtn;
+}
+
+let deleteTodo = null;
+let modifyTodo = null;
 function populateTodos() {
   todos.forEach((elem) => {
     const divTodo = returnElement("ul");
@@ -112,8 +124,8 @@ function populateTodos() {
     const checkList = returnElement("li");
     const projects = returnElement("li");
     const statusSpan = returnElement("li");
-    const deleteTodo = returnElement("button");
-    const modifyTodo = returnElement("button");
+    deleteTodo = returnElement("button");
+    modifyTodo = returnElement("button");
     deleteTodo.classList.add("deleteTodo");
     modifyTodo.classList.add("modifyTodo");
     divTodo.append(title);
@@ -137,6 +149,8 @@ function populateTodos() {
     checkList.textContent = `${elem.checklist}`;
     projects.textContent = `${elem.projectsTodos.project}`;
     statusSpan.textContent = `${elem.projectsTodos.status}`;
+    deleteTodoFunction(deleteTodo, divTodo);
+    modifyTodoFunction(modifyTodo);
   });
 }
 
@@ -164,6 +178,10 @@ function todo() {
     const liCheckList = returnElement("li");
     const liProjects = returnElement("li");
     const liStatusSpan = returnElement("li");
+    const deleteButton = returnElement("button");
+    const modifyButton = returnElement("button");
+    deleteButton.classList.add("deleteTodo");
+    modifyButton.classList.add("modifyTodo");
     liTitle.textContent = formValidation(data.titleTodo);
     liDescription.textContent = formValidation(data.descriptionTodo);
     liDueDate.textContent = formValidation(data.dueDate);
@@ -172,6 +190,8 @@ function todo() {
     liCheckList.textContent = formValidation(data.checkList);
     liProjects.textContent = formValidation(data.projects);
     liStatusSpan.textContent = formValidation(data.status);
+    deleteButton.textContent = "Delete";
+    modifyButton.textContent = "Modify";
     divTodo.append(liTitle);
     divTodo.append(liDescription);
     divTodo.append(liDueDate);
@@ -180,7 +200,10 @@ function todo() {
     divTodo.append(liCheckList);
     divTodo.append(liProjects);
     divTodo.append(liStatusSpan);
-
+    divTodo.append(deleteButton);
+    divTodo.append(modifyButton);
+    deleteTodoFunction(deleteButton, divTodo);
+    // modifyTodoFunction(modifyTodo, divTodo);
     content.append(divTodo);
     content.classList.add("content");
   });
@@ -216,6 +239,19 @@ function getDataFromLocalStorage() {
   }
 
   return data; // Return the object
+}
+
+function deleteTodoFunction(deleteTodo, divTodo) {
+  deleteTodo.addEventListener("click", function () {
+    console.log("delete todo");
+    divTodo.remove();
+  });
+}
+
+function modifyTodoFunction(modifyTodo) {
+  modifyTodo.addEventListener("click", function () {
+    console.log("modify todo");
+  });
 }
 
 populateTodos();
